@@ -14,12 +14,12 @@ class PetCare
         {
             if (int.TryParse(value, out _))
             {
-                Console.WriteLine("Error: Pet name cannot be numeric. Please enter a valid name.");
+                Console.WriteLine("\nError: Pet name cannot be numeric. Please enter a valid name.");
                 throw new ArgumentException("Pet name cannot be numeric.");
             }
             else
             {
-                petName = value;
+                petName = value.ToUpper(); // Convert to uppercase;
             }
         }
     }
@@ -124,7 +124,7 @@ class Program
             Console.WriteLine("3. Rabbit");
             Console.WriteLine("4. Hamster");
 
-            Console.Write("Enter the number for your desired pet type: ");
+            Console.Write("\nEnter the number for your desired pet type: ");
 
             if (!int.TryParse(Console.ReadLine(), out petTypeChoice) || petTypeChoice < 1 || petTypeChoice > 4)
             {
@@ -153,7 +153,7 @@ class Program
 
             do
             {
-                Console.Write($"Enter your {petType}'s name: ");
+                Console.Write($"\nEnter your {petType}'s name: ");
                 try
                 {
                     petName = Console.ReadLine();
