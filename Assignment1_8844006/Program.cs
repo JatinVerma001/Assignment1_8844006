@@ -1,8 +1,6 @@
-﻿// Import necessary namespaces
-using System;
+﻿using System;
 using System.Threading;
 
-// PetCare class for simulation
 class PetCare
 {
     private string petName;
@@ -13,7 +11,18 @@ class PetCare
     public string PetName
     {
         get { return petName; }
-        set { petName = value; }
+        set
+        {
+            // Check if the pet name is numeric
+            if (int.TryParse(value, out _))
+            {
+                Console.WriteLine("Error: Pet name cannot be numeric. Please enter a valid name.");
+            }
+            else
+            {
+                petName = value;
+            }
+        }
     }
 
     public int Hunger
@@ -33,6 +42,7 @@ class PetCare
         get { return health; }
         set { health = value; }
     }
+
     public void FeedPet()
     {
         if (Hunger == 0)
@@ -44,7 +54,6 @@ class PetCare
         Console.WriteLine($"{PetName} is being fed.");
         Hunger -= 2;
         Health += 3;
-       
     }
 
     public void PlayWithPet()
@@ -62,7 +71,6 @@ class PetCare
         if (Happiness <= 3)
         {
             Console.WriteLine($"{PetName} is not very happy. Consider playing with {PetName}.");
-            
         }
     }
 
@@ -81,7 +89,6 @@ class PetCare
         if (Health >= 8)
         {
             Console.WriteLine($"{PetName}'s health is high. Consider other actions.");
-         
         }
     }
 
@@ -96,105 +103,96 @@ class PetCare
         {
             Console.WriteLine($"{PetName}'s health is high. Consider other actions.");
         }
-
-        }
-
-    private void PrintStatus()
-    {
-        Console.WriteLine($"Current status of {PetName}:");
-        Console.WriteLine($"Hunger: {Hunger}");
-        Console.WriteLine($"Happiness: {Happiness}");
-        Console.WriteLine($"Health: {Health}");
     }
+}
 
-    class Program
+class Program
+{
+    static void Main()
     {
-        static void Main()
+        Console.WriteLine("Welcome to the Pet Simulator!");
+
+        int petTypeChoice;
+        string petType = "";
+
+        do
         {
-            Console.WriteLine("Welcome to the Pet Simulator!");
+            Console.WriteLine("\nChoose the type of pet:");
+            Console.WriteLine("1. Cat");
+            Console.WriteLine("2. Dog");
+            Console.WriteLine("3. Rabbit");
+            Console.WriteLine("4. Hamster");
 
-            int petTypeChoice;
-            string petType = "";
+            Console.Write("Enter the number for your desired pet type: ");
 
-            do
+            if (!int.TryParse(Console.ReadLine(), out petTypeChoice) || petTypeChoice < 1 || petTypeChoice > 4)
             {
-                Console.WriteLine("\nChoose the type of pet:");
-                Console.WriteLine("1. Cat");
-                Console.WriteLine("2. Dog");
-                Console.WriteLine("3. Rabbit");
-                Console.WriteLine("4. Hamster");
+                Console.WriteLine("\nError: Invalid choice. Please enter a number for the given choices.");
+                continue;
+            }
 
-                Console.Write("Enter the number for your desired pet type: ");
-
-                if (!int.TryParse(Console.ReadLine(), out petTypeChoice) || petTypeChoice < 1 || petTypeChoice > 4)
-                {
-                    Console.WriteLine("\nError: Invalid choice. Please enter a number for the given choices.");
-                    continue;
-                }
-
-                switch (petTypeChoice)
-                {
-                    case 1:
-                        petType = "Cat";
-                        break;
-                    case 2:
-                        petType = "Dog";
-                        break;
-                    case 3:
-                        petType = "Rabbit";
-                        break;
-                    case 4:
-                        petType = "Hamster";
-                        break;
-                    default:
-                        Console.WriteLine("Error: Invalid choice. Please enter a number for the given choices.");
-                        break;
-                }
-
-            } while (string.IsNullOrEmpty(petType));
-
-            PetCare userPet = new PetCare();
-            Console.Write($"Enter your {petType}'s name: ");
-            userPet.PetName = Console.ReadLine();
-
-            int choice;
-
-            do
+            switch (petTypeChoice)
             {
-                Console.WriteLine("\nMain Menu:");
-                Console.WriteLine($"1. Feed {userPet.PetName}");
-                Console.WriteLine($"2. Play with {userPet.PetName}");
-                Console.WriteLine($"3. Let {userPet.PetName} rest");
-                Console.WriteLine($"4. Check {userPet.PetName}'s Status");
-                Console.WriteLine("5. Exit");
+                case 1:
+                    petType = "Cat";
+                    break;
+                case 2:
+                    petType = "Dog";
+                    break;
+                case 3:
+                    petType = "Rabbit";
+                    break;
+                case 4:
+                    petType = "Hamster";
+                    break;
+                default:
+                    Console.WriteLine("Error: Invalid choice. Please enter a number for the given choices.");
+                    break;
+            }
 
-                Console.Write("Enter your choice (1-5): ");
-                int.TryParse(Console.ReadLine(), out choice);
+        } while (string.IsNullOrEmpty(petType));
 
-                switch (choice)
-                {
-                    case 1:
-                        userPet.FeedPet();
-                        break;
-                    case 2:
-                        userPet.PlayWithPet();
-                        break;
-                    case 3:
-                        userPet.LetPetRest();
-                        break;
-                    case 4:
-                        userPet.CheckStatus();
-                        break;
-                    case 5:
-                        Console.WriteLine("Goodbye!");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please enter a number between 1 and 5.");
-                        break;
-                }
+        PetCare userPet = new PetCare();
+        Console.Write($"Enter your {petType}'s name: ");
+        userPet.PetName = Console.ReadLine();
 
-            } while (choice != 5);
+        int choice;
 
-        }
+        do
+        {
+            Console.WriteLine("\nMain Menu:");
+            Console.WriteLine($"1. Feed {userPet.PetName}");
+            Console.WriteLine($"2. Play with {userPet.PetName}");
+            Console.WriteLine($"3. Let {userPet.PetName} rest");
+            Console.WriteLine($"4. Check {userPet.PetName}'s Status");
+            Console.WriteLine("5. Exit");
+
+            Console.Write("Enter your choice (1-5): ");
+            int.TryParse(Console.ReadLine(), out choice);
+
+            switch (choice)
+            {
+                case 1:
+                    userPet.FeedPet();
+                    break;
+                case 2:
+                    userPet.PlayWithPet();
+                    break;
+                case 3:
+                    userPet.LetPetRest();
+                    break;
+                case 4:
+                    userPet.CheckStatus();
+                    break;
+                case 5:
+                    Console.WriteLine("Goodbye!");
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 5.");
+                    break;
+            }
+
+        } while (choice != 5);
+
     }
 }
