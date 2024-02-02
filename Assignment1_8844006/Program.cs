@@ -3,9 +3,9 @@
 class PetCare
 {
     private string petName;
-    private int hunger;
-    private int happiness;
-    private int health;
+    private int hunger = 3;
+    private int happiness = 7;
+    private int health = 8;
 
     public string PetName
     {
@@ -93,6 +93,11 @@ class PetCare
 
     public void CheckStatus()
     {
+        Console.WriteLine($"{PetName}'s Status:");
+        Console.WriteLine($"Hunger: {Hunger}");
+        Console.WriteLine($"Happiness: {Happiness}");
+        Console.WriteLine($"Health: {Health}");
+
         if (Hunger >= 8)
         {
             Console.WriteLine($"{PetName} is getting hungry. Consider feeding {PetName}.");
@@ -174,7 +179,7 @@ class Program
 
         do
         {
-            Console.WriteLine("\nMain Menu:");
+            Console.WriteLine("\nChoose your PetCare option:");
             Console.WriteLine($"1. Feed {userPet.PetName}");
             Console.WriteLine($"2. Play with {userPet.PetName}");
             Console.WriteLine($"3. Let {userPet.PetName} rest");
@@ -210,3 +215,4 @@ class Program
 
     }
 }
+
