@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 class PetCare
 {
@@ -13,10 +12,10 @@ class PetCare
         get { return petName; }
         set
         {
-            // Check if the pet name is numeric
             if (int.TryParse(value, out _))
             {
                 Console.WriteLine("Error: Pet name cannot be numeric. Please enter a valid name.");
+                throw new ArgumentException("Pet name cannot be numeric.");
             }
             else
             {
@@ -114,6 +113,8 @@ class Program
 
         int petTypeChoice;
         string petType = "";
+        string petName = null; // Initialize petName to null
+        PetCare userPet = new PetCare(); // Declare userPet outside the loop
 
         do
         {
@@ -150,11 +151,24 @@ class Program
                     break;
             }
 
+            do
+            {
+                Console.Write($"Enter your {petType}'s name: ");
+                try
+                {
+                    petName = Console.ReadLine();
+                    userPet.PetName = petName;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Invalid pet name. Please enter a non-numeric name.");
+                }
+
+            } while (string.IsNullOrEmpty(petName) || int.TryParse(petName, out _));
+
         } while (string.IsNullOrEmpty(petType));
 
-        PetCare userPet = new PetCare();
-        Console.Write($"Enter your {petType}'s name: ");
-        userPet.PetName = Console.ReadLine();
+        userPet.PetName = petName;
 
         int choice;
 
