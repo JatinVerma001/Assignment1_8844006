@@ -1,8 +1,11 @@
 # Assignment1_8844006
 
-![Gif for the simulator.](https://drive.google.com/file/d/1wLZwAdefYlYhDbRWmDM929M2IpdJV3TO/view?usp=sharing)
+**This is assignment 1 for the pet simulator** 
 
-[![Video walk-through for the simulator](https://www.youtube.com/watch?v=RiQef3rGNjM])
+**Following is the video for the walk-through**
+> https://www.youtube.com/watch?v=RiQef3rGNjM
 
+**Below is the gif attached for the simulator**
+> ![Gif for the simulator](https://i.imgur.com/cUAwYHP.gif)
 
 
